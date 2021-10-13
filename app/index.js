@@ -19,22 +19,15 @@ function videoFrameHandler(videoFrame, notifyVideoProcessed, notifyError) {
 }
 
 function processAndSend(videoFrame, notifyVideoProcessed, notifyError) {
-  console.log(
-    "height:",
-    videoFrame.height,
-    "width:",
-    videoFrame.width,
-    "numRes:",
-    videoFrame.data.length
-  );
 
-  if (selectedEffect != undefined) {
-    filterOrchestrator.processImage(
-      videoFrame.data,
-      videoFrame.width,
-      videoFrame.height,
-      selectedEffect
-    );
+  if (selectedEffect !== undefined) {
+    // filterOrchestrator.processImage(
+    //   videoFrame.data,
+    //   videoFrame.width,
+    //   videoFrame.height,
+    //   selectedEffect
+    // );
+    console.log(selectedEffect);
   }
 
   //send notification the effect processing is finshed.

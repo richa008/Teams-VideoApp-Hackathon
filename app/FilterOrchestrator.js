@@ -51,7 +51,7 @@ class FilterOrchestrator {
   }
 
   setFilter(effect) {
-    if (this.filter === undefined || effect != this.currentEffect) {
+    if (this.filter === undefined || effect !== this.currentEffect) {
       if (effect === "grainy") {
         this.filter = new GrainyFilter();
       }
