@@ -5,10 +5,10 @@ class BlackWhiteFilter extends ImageFilter {
     }
   
     getFragmentShader() {
-        let amount = 0.5;
       return '\
+      precision mediump float;\
       uniform sampler2D texture;\
-      uniform float amount;\
+      uniform float amount = 0.5;\
       varying vec2 texCoord;\
       float rand(vec2 co) {\
           return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);\
