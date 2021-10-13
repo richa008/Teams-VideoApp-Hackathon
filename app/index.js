@@ -9,7 +9,7 @@ let canvas;
 let gl;
 canvas = document.createElement("canvas");
 gl = canvas.getContext("webgl");
-let selectedEffect;
+let selectedEffectId;
 
 let errorOccurs = false;
 
@@ -20,14 +20,14 @@ function videoFrameHandler(videoFrame, notifyVideoProcessed, notifyError) {
 
 function processAndSend(videoFrame, notifyVideoProcessed, notifyError) {
 
-  if (selectedEffect !== undefined) {
-    // filterOrchestrator.processImage(
-    //   videoFrame.data,
-    //   videoFrame.width,
-    //   videoFrame.height,
-    //   selectedEffect
-    // );
-    console.log(selectedEffect);
+  if (selectedEffectId !== undefined) {
+    filterOrchestrator.processImage(
+      videoFrame.data,
+      videoFrame.width,
+      videoFrame.height,
+      selectedEffectId
+    );
+    console.log(selectedEffectId);
   }
 
   //send notification the effect processing is finshed.
@@ -40,7 +40,7 @@ function processAndSend(videoFrame, notifyVideoProcessed, notifyError) {
 }
 
 function effectParameterChanged(effectName) {
-  selectedEffect = effectName;
+  selectedEffectId = effectName;
 }
 
 function preload() {

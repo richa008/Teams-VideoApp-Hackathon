@@ -52,8 +52,11 @@ class FilterOrchestrator {
 
   setFilter(effect) {
     if (this.filter === undefined || effect !== this.currentEffect) {
-      if (effect === "grainy") {
+      // TODO: get name from id
+      if (effect === "f36d7f68-7c71-41f5-8fd9-ebf0ae38f949") { // Grainy
         this.filter = new GrainyFilter();
+      } else if (effect === "09b467f2-e933-426a-9059-95a84ef342d5") { // Saturation
+
       }
       this.currentEffect = effect;
     }
