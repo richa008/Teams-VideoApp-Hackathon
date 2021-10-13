@@ -1,15 +1,20 @@
 class BlackWhiteFilter extends ImageFilter {
   constructor() {
     super();
-    this.textureCurveLocation = null;
-    this.textureCurve;
+    this.texture = gl.createTexture();
+
+    gl.bindTexture(gl.TEXTURE_2D, _sourceTexture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);;
   }
 
   getFragmentShader() {
     return "\
       precision highp float;\
       varying highp vec2 v_texCoord;\
-      uniform sampler2D textureCurve;\
+      uniform sampler2D texture;\
       float rand(vec2 co) {\
           return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);\
       }\
@@ -24,18 +29,5 @@ class BlackWhiteFilter extends ImageFilter {
           gl_FragColor = color;\
       }\
   ";
-  }
-
-  initAsset() {
-    this.textureCurve = getFilterAssets("antique", "textureCurve")[0];
-  }
-
-  initLocation() {
-    super.initLocation();
-
-    this.textureCurveLocation = gl.getUniformLocation(
-      this.program,
-      "textureCurve"
-    );
   }
 }
