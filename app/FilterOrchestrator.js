@@ -9,7 +9,7 @@ class FilterOrchestrator {
       this.outputFrame;
   
       // effect tracker
-      this.currentEffect;
+    //   this.currentEffect;
       this.currentWidth;
       this.currentHeight;
   
@@ -22,11 +22,11 @@ class FilterOrchestrator {
       }
     }
   
-    setPreliminary(effect, imageWidth, imageHeight) {
+    setPreliminary(imageWidth, imageHeight) {
       this.setCanvas(imageWidth, imageHeight);
       this.setOutputFrame(imageWidth, imageHeight);
       this.setResolution(imageWidth, imageHeight);
-      this.setFilter(effect);
+      this.setFilter();
     }
   
     setCanvas(imageWidth, imageHeight) {
@@ -48,8 +48,8 @@ class FilterOrchestrator {
       this.currentHeight = imageHeight;
     }
   
-    setFilter(effect) {
-      if (this.filter === undefined || effect != this.currentEffect) {
+    setFilter() {
+      //if (this.filter === undefined || effect != this.currentEffect) {
   
         // switch (effect) {
         //   case "oldschool":
@@ -92,17 +92,12 @@ class FilterOrchestrator {
         //     throw "No filter exists.";
         // }
   
-        this.currentEffect = effect;
-      }
+        // this.currentEffect = effect;
+      //}
     }
   
-    getRGBTransformedFrame(image, imageWidth, imageHeight,  effect) {
-      if (effect === undefined) {
-        return;
-      }
-      console.log("Current Frame Effect: ", effect)
-  
-      this.setPreliminary(effect, imageWidth, imageHeight);
+    getRGBTransformedFrame(image, imageWidth, imageHeight) {  
+      this.setPreliminary(imageWidth, imageHeight);
   
       var vertices = new Float32Array([
         -1, -1, 0, 0.0, 0.0,
@@ -145,8 +140,8 @@ class FilterOrchestrator {
       }
     }
   
-    processImage(nv12Input, imageWidth, imageHeight, effect){
-      this.getRGBTransformedFrame(nv12Input, imageWidth, imageHeight, effect);
+    processImage(nv12Input, imageWidth, imageHeight){
+      this.getRGBTransformedFrame(nv12Input, imageWidth, imageHeight);
       this.dataAligment(nv12Input, imageWidth, imageHeight)
     }
   }

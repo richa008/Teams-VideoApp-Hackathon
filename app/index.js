@@ -18,15 +18,15 @@ let errorOccurs = false;
 
 //Sample video effect
 function videoFrameHandler(videoFrame, notifyVideoProcessed, notifyError) {
-  processAndSend(videoFrame, notifyVideoProcessed, notifyError, appliedEffect.proportion);
+  processAndSend(videoFrame, notifyVideoProcessed, notifyError);
 }
 
 function processAndSend(videoFrame, notifyVideoProcessed, notifyError) {
-  console.log("height:", videoFrame.height, "width:", videoFrame.width, "numRes:", videoFrame.data.length)
+  console.log("height:", videoFrame.height, "width:", videoFrame.width, "numRes:", videoFrame.data.length);
 
-  if (appliedEffect.effect != null) {
-    filterOrchestrator.processImage(videoFrame.data, videoFrame.width, videoFrame.height, appliedEffect.effect)
-  }
+  // if (appliedEffect.effect != null) {
+    filterOrchestrator.processImage(videoFrame.data, videoFrame.width, videoFrame.height);
+  // }
 
   //send notification the effect processing is finshed.
   notifyVideoProcessed();
@@ -45,12 +45,10 @@ function effectParameterChanged(effectName) {
   //   uiSelectedEffect.effect = previewFilterMapping[effectName]
   // }
 
-  // appliedEffect = {
-  //   ...appliedEffect,
-  //   ...uiSelectedEffect,
-  // };
-  console.log(effectName);
-
+  appliedEffect = {
+    ...appliedEffect,
+    ...uiSelectedEffect,
+  };
 }
 
 // function addCheckMark(id, isClickListener) {
