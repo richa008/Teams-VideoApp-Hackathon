@@ -30,62 +30,63 @@ function videoFrameHandler(videoFrame, notifyVideoProcessed, notifyError) {
     videoFrame.data[i + 1] = appliedEffect.pixelValue;
   }
 
-  // canvas.width = videoFrame.width;
-  // canvas.height = videoFrame.height;
-  // var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
-  // var texCoordAttributeLocation = gl.getAttribLocation(program, "a_texCoord");
+  canvas.width = videoFrame.width;
+  canvas.height = videoFrame.height;
+  
+  var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+  var texCoordAttributeLocation = gl.getAttribLocation(program, "a_texCoord");
  
-  // // lookup uniforms
-  // var resolutionLocation = gl.getUniformLocation(program, "u_resolution");
-  // var imageLocation = gl.getUniformLocation(program, "u_image");
+  // lookup uniforms
+  var resolutionLocation = gl.getUniformLocation(program, "u_resolution");
+  var imageLocation = gl.getUniformLocation(program, "u_image");
  
-  // // provide texture coordinates for the rectangle.
-  // var texCoordBuffer = gl.createBuffer();
-  // gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-  // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-  //     0.0,  0.0,
-  //     1.0,  0.0,
-  //     0.0,  1.0,
-  //     0.0,  1.0,
-  //     1.0,  0.0,
-  //     1.0,  1.0]), gl.STATIC_DRAW);
-  // gl.enableVertexAttribArray(texCoordAttributeLocation);
-  // var size = 2;          // 2 components per iteration
-  // var type = gl.FLOAT;   // the data is 32bit floats
-  // var normalize = false; // don't normalize the data
-  // var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
-  // var offset = 0;        // start at the beginning of the buffer
-  // gl.vertexAttribPointer(
-  //     texCoordAttributeLocation, size, type, normalize, stride, offset)
+  // provide texture coordinates for the rectangle.
+  var texCoordBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+      0.0,  0.0,
+      1.0,  0.0,
+      0.0,  1.0,
+      0.0,  1.0,
+      1.0,  0.0,
+      1.0,  1.0]), gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(texCoordAttributeLocation);
+  var size = 2;          // 2 components per iteration
+  var type = gl.FLOAT;   // the data is 32bit floats
+  var normalize = false; // don't normalize the data
+  var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
+  var offset = 0;        // start at the beginning of the buffer
+  gl.vertexAttribPointer(
+      texCoordAttributeLocation, size, type, normalize, stride, offset)
  
-  // // Create a texture.
-  // var texture = gl.createTexture();
+  // Create a texture.
+  var texture = gl.createTexture();
  
-  // // make unit 0 the active texture unit
-  // // (i.e, the unit all other texture commands will affect.)
-  // gl.activeTexture(gl.TEXTURE0 + 0);
+  // make unit 0 the active texture unit
+  // (i.e, the unit all other texture commands will affect.)
+  gl.activeTexture(gl.TEXTURE0 + 0);
  
-  // // Bind texture to 'texture unit '0' 2D bind point
-  // gl.bindTexture(gl.TEXTURE_2D, texture);
+  // Bind texture to 'texture unit '0' 2D bind point
+  gl.bindTexture(gl.TEXTURE_2D, texture);
  
-  // // Set the parameters so we don't need mips and so we're not filtering
-  // // and we don't repeat
-  // gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-  // gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-  // gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-  // gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+  // Set the parameters so we don't need mips and so we're not filtering
+  // and we don't repeat
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
  
-  // // Upload the image into the texture.
-  // var mipLevel = 0;               // the largest mip
-  // var internalFormat = gl.RGBA;   // format we want in the texture
-  // var srcFormat = gl.RGBA;        // format of data we are supplying
-  // var srcType = gl.UNSIGNED_BYTE  // type of data we are supplying
-  // gl.texImage2D(gl.TEXTURE_2D,
-  //               mipLevel,
-  //               internalFormat,
-  //               srcFormat,
-  //               srcType,
-  //               image);
+  // Upload the image into the texture.
+  var mipLevel = 0;               // the largest mip
+  var internalFormat = gl.RGBA;   // format we want in the texture
+  var srcFormat = gl.RGBA;        // format of data we are supplying
+  var srcType = gl.UNSIGNED_BYTE  // type of data we are supplying
+  gl.texImage2D(gl.TEXTURE_2D,
+                mipLevel,
+                internalFormat,
+                srcFormat,
+                srcType,
+                image);
 
   //send notification the effect processing is finshed.
   notifyVideoProcessed();
