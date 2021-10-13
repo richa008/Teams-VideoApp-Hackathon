@@ -49,4 +49,14 @@ class EmbossFilter extends ImageFilter {
             '}'
         ].join('\n');
     }
+
+    vertexBinding() {
+        var floatSize = Float32Array.BYTES_PER_ELEMENT;
+		var vertSize = 4 * floatSize;
+		gl.enableVertexAttribArray(this.positionLocation);
+		gl.vertexAttribPointer(this.positionLocation, 2, gl.FLOAT, false, vertSize , 0 * floatSize);
+		gl.enableVertexAttribArray(this.textureUVLocation);
+		gl.vertexAttribPointer(this.textureUVLocation, 2, gl.FLOAT, false, vertSize, 2 * floatSize);
+
+    }
   }
