@@ -39,7 +39,7 @@
       ]
     }
   },
-  "validDomains": ["richa008.github.io"],
+  "validDomains": ["localhost:9000"],
   "localizationInfo": {
     "defaultLanguageTag": "en-us"
   },
@@ -51,6 +51,6 @@
         "thumbnail": "half.png"
       }
     ],
-    "videoAppContentUrl": "https://richa008.github.io/Teams-VideoApp-Hackathon/app/index.html"
+    "videoAppContentUrl": "https://localhost:9000/index.html"
   }
 }

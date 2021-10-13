@@ -1,5 +1,5 @@
 microsoftTeams.initialize(() => {}, [
-  "https://lubobill1990.github.io",
+  "https://richa008.github.io",
 ]);
 
 // This is the effect for processing
@@ -12,16 +12,28 @@ let appliedEffect = {
 let uiSelectedEffect = {};
 
 let errorOccurs = false;
+
+let canvas = document.createElement("canvas");
+let gl = canvas.getContext("webgl");
+let context = canvas.getContext("2d");
+
 //Sample video effect
 function videoFrameHandler(videoFrame, notifyVideoProcessed, notifyError) {
-  const maxLen =
-    (videoFrame.height * videoFrame.width) /
-      Math.max(1, appliedEffect.proportion) - 4;
+  // const maxLen =
+  //   (videoFrame.height * videoFrame.width) /
+  //     Math.max(1, appliedEffect.proportion) - 4;
 
-  for (let i = 1; i < maxLen; i += 4) {
-    //smaple effect just change the value to 100, which effect some pixel value of video frame
-    videoFrame.data[i + 1] = appliedEffect.pixelValue;
-  }
+  // for (let i = 1; i < maxLen; i += 4) {
+  //   //smaple effect just change the value to 100, which effect some pixel value of video frame
+  //   videoFrame.data[i + 1] = appliedEffect.pixelValue;
+  // }
+
+  canvas.width = videoFrame.width;
+  canvas.height = videoFrame.height;
+
+  var img = document.createElement("img");
+  img.src = "/images/clown.png";
+  context.drawImage(img, 10, 10);
 
   //send notification the effect processing is finshed.
   notifyVideoProcessed();
