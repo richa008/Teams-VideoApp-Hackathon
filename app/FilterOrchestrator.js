@@ -111,7 +111,7 @@ class FilterOrchestrator {
       const dataY = new Uint8ClampedArray(image.slice(0,  imageWidth * imageHeight), 0, imageWidth * imageHeight);
       const dataUV = new Uint8ClampedArray(image.slice(imageWidth * imageHeight, image.length), 0, imageWidth / 2 * imageHeight / 2);
   
-      //this.filter.onDrawFrame(dataY, dataUV, vertices, indices, imageWidth, imageHeight);
+      this.filter.onDrawFrame(dataY, dataUV, vertices, indices, imageWidth, imageHeight);
       //gl.readPixels(0, 0, imageWidth, imageHeight, gl.RGBA, gl.UNSIGNED_BYTE, this.outputFrame); 
     }
   
