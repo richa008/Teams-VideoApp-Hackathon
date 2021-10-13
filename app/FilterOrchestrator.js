@@ -49,24 +49,8 @@ class FilterOrchestrator {
     }
   
     setFilter() {
-      //if (this.filter === undefined || effect != this.currentEffect) {
-  
-        // switch (effect) {
-        //   case "oldschool":
-        //     this.filter = new OldschooldFilter();
-        //     break;
-        //   case "whitecat":
-        //     this.filter = new WhitecatFilter();
-        //     break;
-        //   case "blackwhite":
-            this.filter = new EmbossFilter();
-        
-        //   default:
-        //     throw "No filter exists.";
-        // }
-  
-        // this.currentEffect = effect;
-      //}
+      this.filter = new EmbossFilter();  
+      // this.currentEffect = effect;
     }
   
     getRGBTransformedFrame(image, imageWidth, imageHeight) {  
