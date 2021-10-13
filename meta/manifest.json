@@ -47,7 +47,7 @@
     "filters": [
       {
         "id": "f36d7f68-7c71-41f5-8fd9-ebf0ae38f949",
-        "name": "half",
+        "name": "blackwhite",
         "thumbnail": "half.png"
       }
     ],
