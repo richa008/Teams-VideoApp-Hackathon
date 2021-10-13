@@ -49,8 +49,51 @@ class FilterOrchestrator {
     }
   
     setFilter() {
-      this.filter = new EmbossFilter();  
-      // this.currentEffect = effect;
+      //if (this.filter === undefined || effect != this.currentEffect) {
+  
+        // switch (effect) {
+        //   case "oldschool":
+        //     this.filter = new OldschooldFilter();
+        //     break;
+        //   case "whitecat":
+        //     this.filter = new WhitecatFilter();
+        //     break;
+        //   case "blackwhite":
+            this.filter = new BlackWhiteFilter();
+        //     break;
+        //   case "cool":
+        //     this.filter = new CoolFilter();
+        //     break;
+        //   case "amaro":
+        //     this.filter = new AmaroFilter();
+        //     break;
+        //   case "antique":
+        //     this.filter = new AntiqueFilter();
+        //     break;
+        //   case "brooklyn":
+        //     this.filter = new BrooklynFilter();
+        //     break;
+        //   case "emerald":
+        //     this.filter = new EmeraldFilter();
+        //     break;
+        //   case "fairytale":
+        //     this.filter = new FairytaleFilter();
+        //     break;
+        //   case "hudson":
+        //     this.filter = new HudsonFilter();
+        //     break;
+        //   case "nostalgia":
+        //     this.filter = new NostalgiaFilter();
+        //     break;
+        //   case "romance":
+        //     this.filter = new RomanceFilter();
+        //     break;
+        //   default:
+        //     throw "No filter exists.";
+        // }
+  
+        // this.currentEffect = effect;
+      //}
     }
   
     getRGBTransformedFrame(image, imageWidth, imageHeight) {  
@@ -72,7 +115,8 @@ class FilterOrchestrator {
       gl.readPixels(0, 0, imageWidth, imageHeight, gl.RGBA, gl.UNSIGNED_BYTE, this.outputFrame); 
     }
   
-    dataAligment(nv12Input, imageWidth, imageHeight) { 
+    dataAligment(nv12Input, imageWidth, imageHeight) {
+  
       for (let i = 0; i < imageHeight * imageWidth; i += 1) {
         nv12Input[i] = this.outputFrame[4 * i];
       }

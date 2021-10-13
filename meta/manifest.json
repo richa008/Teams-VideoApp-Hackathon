@@ -16,11 +16,11 @@
     "outline": "icon-outline.png"
   },
   "name": {
-    "short": "Fun filters for Teams",
+    "short": "FunFilters",
     "full": ""
   },
   "description": {
-    "short": "Fun/silly filters for Teams video",
+    "short": "Fun filters for Teams video",
     "full": ""
   },
   "accentColor": "#FFFFFF",
@@ -47,7 +47,7 @@
     "filters": [
       {
         "id": "f36d7f68-7c71-41f5-8fd9-ebf0ae38f949",
-        "name": "emboss",
+        "name": "blackwhite",
         "thumbnail": "half.png"
       }
     ],
