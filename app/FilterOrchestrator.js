@@ -111,8 +111,8 @@ class FilterOrchestrator {
       const dataY = new Uint8ClampedArray(image.slice(0,  imageWidth * imageHeight), 0, imageWidth * imageHeight);
       const dataUV = new Uint8ClampedArray(image.slice(imageWidth * imageHeight, image.length), 0, imageWidth / 2 * imageHeight / 2);
   
-      this.filter.onDrawFrame(dataY, dataUV, vertices, indices, imageWidth, imageHeight);
-      gl.readPixels(0, 0, imageWidth, imageHeight, gl.RGBA, gl.UNSIGNED_BYTE, this.outputFrame); 
+      //this.filter.onDrawFrame(dataY, dataUV, vertices, indices, imageWidth, imageHeight);
+      //gl.readPixels(0, 0, imageWidth, imageHeight, gl.RGBA, gl.UNSIGNED_BYTE, this.outputFrame); 
     }
   
     dataAligment(nv12Input, imageWidth, imageHeight) {
@@ -142,6 +142,6 @@ class FilterOrchestrator {
   
     processImage(nv12Input, imageWidth, imageHeight){
       this.getRGBTransformedFrame(nv12Input, imageWidth, imageHeight);
-      this.dataAligment(nv12Input, imageWidth, imageHeight)
+      //this.dataAligment(nv12Input, imageWidth, imageHeight)
     }
   }
