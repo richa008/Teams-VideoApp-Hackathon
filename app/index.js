@@ -77,7 +77,7 @@ function effectParameterChanged(effectName) {
 
 // }
 
-async function preload() {
+function preload() {
   // var content = document.getElementsByClassName("co");
   // var imgs = document.getElementsByClassName("candidate");
   // for (var i = 0; i < imgs.length; i++) {

@@ -12,21 +12,29 @@ class FilterOrchestrator {
     //   this.currentEffect;
       this.currentWidth;
       this.currentHeight;
+  
+      this.init();
+    }
+  
+    init() {
+      if (gl === undefined || canvas === undefined){
+        throw "Please first create canvas and gl context."
+      }
     }
   
     setPreliminary(imageWidth, imageHeight) {
       this.setCanvas(imageWidth, imageHeight);
-    //   this.setOutputFrame(imageWidth, imageHeight);
-    //   this.setResolution(imageWidth, imageHeight);
-    //   this.setFilter();
+      this.setOutputFrame(imageWidth, imageHeight);
+      this.setResolution(imageWidth, imageHeight);
+      this.setFilter();
     }
   
     setCanvas(imageWidth, imageHeight) {
       if (canvas == undefined){
         throw "Canvas has not been initialized."
       }
-    //   canvas.width = imageWidth;
-    //   canvas.height = imageHeight;
+      canvas.width = imageWidth;
+      canvas.height = imageHeight;
     }
   
     setOutputFrame(imageWidth, imageHeight) {
@@ -98,13 +106,13 @@ class FilterOrchestrator {
         1, -1, 0, 1.0, 0.0,
       ])
   
-    //   var indices = new Int16Array([0, 1, 2, 0, 2, 3])
+      var indices = new Int16Array([0, 1, 2, 0, 2, 3])
   
-    //   const dataY = new Uint8ClampedArray(image.slice(0,  imageWidth * imageHeight), 0, imageWidth * imageHeight);
-    //   const dataUV = new Uint8ClampedArray(image.slice(imageWidth * imageHeight, image.length), 0, imageWidth / 2 * imageHeight / 2);
+      const dataY = new Uint8ClampedArray(image.slice(0,  imageWidth * imageHeight), 0, imageWidth * imageHeight);
+      const dataUV = new Uint8ClampedArray(image.slice(imageWidth * imageHeight, image.length), 0, imageWidth / 2 * imageHeight / 2);
   
-    //   this.filter.onDrawFrame(dataY, dataUV, vertices, indices, imageWidth, imageHeight);
-    //   gl.readPixels(0, 0, imageWidth, imageHeight, gl.RGBA, gl.UNSIGNED_BYTE, this.outputFrame); 
+      // this.filter.onDrawFrame(dataY, dataUV, vertices, indices, imageWidth, imageHeight);
+      // gl.readPixels(0, 0, imageWidth, imageHeight, gl.RGBA, gl.UNSIGNED_BYTE, this.outputFrame); 
     }
   
     dataAligment(nv12Input, imageWidth, imageHeight) {
@@ -134,6 +142,6 @@ class FilterOrchestrator {
   
     processImage(nv12Input, imageWidth, imageHeight){
       this.getRGBTransformedFrame(nv12Input, imageWidth, imageHeight);
-      this.dataAligment(nv12Input, imageWidth, imageHeight)
+      // this.dataAligment(nv12Input, imageWidth, imageHeight)
     }
   }
