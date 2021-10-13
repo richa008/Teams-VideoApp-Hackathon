@@ -49,7 +49,7 @@ class FilterOrchestrator {
     }
   
     setFilter() {
-      this.filter = new EmbossFilter();  
+      this.filter = new BlackWhiteFilter();  
       // this.currentEffect = effect;
     }
   

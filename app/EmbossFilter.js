@@ -2,7 +2,6 @@ class EmbossFilter extends ImageFilter {
 
     constructor() {
       super();
-  
     }
   
     getFragmentShader() {
@@ -57,6 +56,5 @@ class EmbossFilter extends ImageFilter {
 		gl.vertexAttribPointer(this.positionLocation, 2, gl.FLOAT, false, vertSize , 0 * floatSize);
 		gl.enableVertexAttribArray(this.textureUVLocation);
 		gl.vertexAttribPointer(this.textureUVLocation, 2, gl.FLOAT, false, vertSize, 2 * floatSize);
-
     }
   }
