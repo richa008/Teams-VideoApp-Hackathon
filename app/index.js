@@ -15,10 +15,9 @@ let errorOccurs = false;
 
 let canvas = document.createElement("canvas");
 let gl = canvas.getContext("webgl");
-let context = canvas.getContext("2d");
 var img = new Image();
-// img.src = "https://richa008.github.io/Teams-VideoApp-Hackathon/app/clown.png";
-var program = gl.createProgram();
+img.src = "https://richa008.github.io/Teams-VideoApp-Hackathon/app/clown.png";
+// var program = gl.createProgram();
 
 //Sample video effect
 function videoFrameHandler(videoFrame, notifyVideoProcessed, notifyError) {
@@ -31,8 +30,8 @@ function videoFrameHandler(videoFrame, notifyVideoProcessed, notifyError) {
     videoFrame.data[i + 1] = appliedEffect.pixelValue;
   }
 
-  canvas.width = videoFrame.width;
-  canvas.height = videoFrame.height;
+  // canvas.width = videoFrame.width;
+  // canvas.height = videoFrame.height;
   // var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
   // var texCoordAttributeLocation = gl.getAttribLocation(program, "a_texCoord");
  
