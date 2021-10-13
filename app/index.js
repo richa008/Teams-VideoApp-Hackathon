@@ -17,7 +17,7 @@ let canvas = document.createElement("canvas");
 let gl = canvas.getContext("webgl");
 let context = canvas.getContext("2d");
 var img = new Image();
-img.src = "https://richa008.github.io/Teams-VideoApp-Hackathon/app/clown.png";
+// img.src = "https://richa008.github.io/Teams-VideoApp-Hackathon/app/clown.png";
 var program = gl.createProgram();
 
 //Sample video effect
