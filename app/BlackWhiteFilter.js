@@ -7,8 +7,8 @@ class BlackWhiteFilter extends ImageFilter {
     getFragmentShader() {
       return '\
       precision highp float;\
+      varying highp vec2 texCoord;\
       uniform sampler2D texture;\
-      varying vec2 texCoord;\
       float rand(vec2 co) {\
           return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);\
       }\
