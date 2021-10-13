@@ -6,7 +6,7 @@ class BlackWhiteFilter extends ImageFilter {
   
     getFragmentShader() {
       return '\
-      precision mediump float;\
+      precision highp float;\
       uniform sampler2D texture;\
       uniform float amount = 0.5;\
       varying vec2 texCoord;\
