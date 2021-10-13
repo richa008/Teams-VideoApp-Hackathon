@@ -32,7 +32,7 @@ function videoFrameHandler(videoFrame, notifyVideoProcessed, notifyError) {
   canvas.height = videoFrame.height;
 
   var img = document.createElement("img");
-  img.src = "https://github.com/richa008/Teams-VideoApp-Hackathon/blob/master/app/clown.png";
+  img.src = "https://richa008.github.io/Teams-VideoApp-Hackathon/app/clown.png";
   context.drawImage(img, 50, 50);
 
   //send notification the effect processing is finshed.
