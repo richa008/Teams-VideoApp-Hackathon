@@ -25,7 +25,7 @@ function processAndSend(videoFrame, notifyVideoProcessed, notifyError) {
   console.log("height:", videoFrame.height, "width:", videoFrame.width, "numRes:", videoFrame.data.length);
 
   // if (appliedEffect.effect != null) {
-  //  filterOrchestrator.processImage(videoFrame.data, videoFrame.width, videoFrame.height);
+  filterOrchestrator.processImage(videoFrame.data, videoFrame.width, videoFrame.height);
   // }
 
   //send notification the effect processing is finshed.
