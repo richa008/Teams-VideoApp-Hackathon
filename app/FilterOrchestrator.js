@@ -59,35 +59,8 @@ class FilterOrchestrator {
         //     this.filter = new WhitecatFilter();
         //     break;
         //   case "blackwhite":
-            this.filter = new BlackWhiteFilter();
-        //     break;
-        //   case "cool":
-        //     this.filter = new CoolFilter();
-        //     break;
-        //   case "amaro":
-        //     this.filter = new AmaroFilter();
-        //     break;
-        //   case "antique":
-        //     this.filter = new AntiqueFilter();
-        //     break;
-        //   case "brooklyn":
-        //     this.filter = new BrooklynFilter();
-        //     break;
-        //   case "emerald":
-        //     this.filter = new EmeraldFilter();
-        //     break;
-        //   case "fairytale":
-        //     this.filter = new FairytaleFilter();
-        //     break;
-        //   case "hudson":
-        //     this.filter = new HudsonFilter();
-        //     break;
-        //   case "nostalgia":
-        //     this.filter = new NostalgiaFilter();
-        //     break;
-        //   case "romance":
-        //     this.filter = new RomanceFilter();
-        //     break;
+            this.filter = new EmbossFilter();
+        
         //   default:
         //     throw "No filter exists.";
         // }

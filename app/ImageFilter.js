@@ -32,8 +32,7 @@ class ImageFilter {
             gl_Position = position;
             v_texCoord = texCoord; 
             }
-        `
-            ;
+        `;
     }
 
     getFragmentShader() {
