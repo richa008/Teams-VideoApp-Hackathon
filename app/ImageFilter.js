@@ -193,7 +193,6 @@ class ImageFilter {
 
         this.uniformBinding(canvasWidth, canvasHeight);
 
-
         gl.viewport(0, 0, canvasWidth, canvasHeight);
         gl.clearColor(0, 0, 0, 0);
         gl.clear(gl.COLOR_BUFFER_BIT);
@@ -201,9 +200,6 @@ class ImageFilter {
         this.vertexBinding(vertextBuffer, indiceBuffer);
 
         gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
-
-
-
     }
 
 }

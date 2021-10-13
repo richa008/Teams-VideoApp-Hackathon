@@ -93,8 +93,32 @@ function preload() {
   microsoftTeams.video.registerForVideoFrame(videoFrameHandler, {
     format: "NV12",
   });
-
 }
 
 preload();
+
+function showArrayAsStr(arr){
+  var s = '';
+  for (let i = 0; i < arr.length; i++){
+    s = s + "," + arr[i]
+  }
+  return s;
+}
+
+function getShader(source, type){
+  var shader = gl.createShader(type);
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    alert("ERROR IN SHADER : " + gl.getShaderInfoLog(shader));
+    return false;
+  }
+  return shader;
+}
+
+
+function resizeCanvas(canvas, width, height){
+  canvas.width = width
+  canvas.height = height
+}
 
