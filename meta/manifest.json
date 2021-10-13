@@ -6,7 +6,7 @@
   "id": "b15f97b7-1f9b-4bb7-ac9f-efddf27aae7b",
   "packageName": "com.microsoft.teams.videopp",
   "developer": {
-    "name": "Hackathon-team",
+    "name": "Richa",
     "websiteUrl": "https://richa008.github.io/Teams-VideoApp-Hackathon",
     "privacyUrl": "https://richa008.github.io/Teams-VideoApp-Hackathon",
     "termsOfUseUrl": "https://richa008.github.io/Teams-VideoApp-Hackathon"
@@ -16,12 +16,12 @@
     "outline": "icon-outline.png"
   },
   "name": {
-    "short": "Teams VideoApp example",
-    "full": "Teams VideoApp example"
+    "short": "Fun filters for Teams",
+    "full": ""
   },
   "description": {
-    "short": "This repo demonstrate a minimal Teams video app.",
-    "full": "Clone this repo and change the video frame processing function"
+    "short": "Fun/silly filters for Teams video",
+    "full": ""
   },
   "accentColor": "#FFFFFF",
   "devicePermissions": ["media"],
@@ -47,7 +47,7 @@
     "filters": [
       {
         "id": "f36d7f68-7c71-41f5-8fd9-ebf0ae38f949",
-        "name": "blackwhite",
+        "name": "emboss",
         "thumbnail": "half.png"
       }
     ],

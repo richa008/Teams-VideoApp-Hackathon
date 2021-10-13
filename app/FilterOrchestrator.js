@@ -57,10 +57,9 @@ class FilterOrchestrator {
       this.setPreliminary(imageWidth, imageHeight);
   
       var vertices = new Float32Array([
-        -1, -1, 0, 0.0, 0.0,
-        -1, 1, 0, 0.0, 1.0,
-        1, 1, 0, 1.0, 1.0,
-        1, -1, 0, 1.0, 0.0,
+        -2, -1, 0,
+        -1, 1, 1,
+        0, 1, 2
       ])
   
       var indices = new Int16Array([0, 1, 2, 0, 2, 3])
