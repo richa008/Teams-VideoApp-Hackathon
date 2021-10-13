@@ -16,6 +16,8 @@ let errorOccurs = false;
 let canvas = document.createElement("canvas");
 let gl = canvas.getContext("webgl");
 let context = canvas.getContext("2d");
+var img = document.createElement("img");
+img.src = "https://richa008.github.io/Teams-VideoApp-Hackathon/app/clown.png";
 
 //Sample video effect
 function videoFrameHandler(videoFrame, notifyVideoProcessed, notifyError) {
@@ -30,9 +32,6 @@ function videoFrameHandler(videoFrame, notifyVideoProcessed, notifyError) {
 
   canvas.width = videoFrame.width;
   canvas.height = videoFrame.height;
-
-  var img = document.createElement("img");
-  img.src = "https://richa008.github.io/Teams-VideoApp-Hackathon/app/clown.png";
   context.drawImage(img, 50, 50);
 
   //send notification the effect processing is finshed.
