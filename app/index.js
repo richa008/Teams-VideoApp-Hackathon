@@ -1,8 +1,11 @@
-microsoftTeams.initialize(() => { }, ["https://lubobill1990.github.io", "https://richa008.github.io"]);
+microsoftTeams.initialize(() => {}, [
+  "https://lubobill1990.github.io",
+  "https://richa008.github.io",
+]);
 // This is the effect for processing
 
 let appliedEffect = {
-  effect: null
+  effect: null,
 };
 
 let filterOrchestrator;
@@ -22,10 +25,21 @@ function videoFrameHandler(videoFrame, notifyVideoProcessed, notifyError) {
 }
 
 function processAndSend(videoFrame, notifyVideoProcessed, notifyError) {
-  console.log("height:", videoFrame.height, "width:", videoFrame.width, "numRes:", videoFrame.data.length);
+  console.log(
+    "height:",
+    videoFrame.height,
+    "width:",
+    videoFrame.width,
+    "numRes:",
+    videoFrame.data.length
+  );
 
   // if (appliedEffect.effect != null) {
-  filterOrchestrator.processImage(videoFrame.data, videoFrame.width, videoFrame.height);
+  filterOrchestrator.processImage(
+    videoFrame.data,
+    videoFrame.width,
+    videoFrame.height
+  );
   // }
 
   //send notification the effect processing is finshed.
@@ -35,11 +49,9 @@ function processAndSend(videoFrame, notifyVideoProcessed, notifyError) {
   if (errorOccurs) {
     notifyError("some error message");
   }
-
 }
 
 function effectParameterChanged(effectName) {
-
   // if (effectName != undefined) {
   //   // addCheckMark(previewFilterMapping[effectName], false);
   //   uiSelectedEffect.effect = previewFilterMapping[effectName]
@@ -97,15 +109,15 @@ function preload() {
 
 preload();
 
-function showArrayAsStr(arr){
-  var s = '';
-  for (let i = 0; i < arr.length; i++){
-    s = s + "," + arr[i]
+function showArrayAsStr(arr) {
+  var s = "";
+  for (let i = 0; i < arr.length; i++) {
+    s = s + "," + arr[i];
   }
   return s;
 }
 
-function getShader(source, type){
+function getShader(source, type) {
   var shader = gl.createShader(type);
   gl.shaderSource(shader, source);
   gl.compileShader(shader);
@@ -116,9 +128,7 @@ function getShader(source, type){
   return shader;
 }
 
-
-function resizeCanvas(canvas, width, height){
-  canvas.width = width
-  canvas.height = height
+function resizeCanvas(canvas, width, height) {
+  canvas.width = width;
+  canvas.height = height;
 }
-

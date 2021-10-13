@@ -1,27 +1,25 @@
 class ImageFilter {
+  constructor() {
+    this.vertexShader = this.getVertexShader();
+    this.fragmentShader = this.getFragmentShader();
 
-    constructor() {
-        this.vertexShader = this.getVertexShader();
-        this.fragmentShader = this.getFragmentShader();
+    this.initalized = false;
 
-        this.initalized = false;
+    this.program = null;
 
-        this.program = null;
+    this.positionLocation = null;
+    this.texcoordLocation = null;
 
-        this.positionLocation = null;
-        this.texcoordLocation = null;
+    this.textureYLocation = null;
+    this.textureUVLocation = null;
+    this.resolutionLocation = null;
 
-        this.textureYLocation = null;
-        this.textureUVLocation = null;
-        this.resolutionLocation = null;
+    this.verticeBuffer = null;
+    this.indicesBuffer = null;
+  }
 
-        this.verticeBuffer = null;
-        this.indicesBuffer = null;
-
-    }
-
-    getVertexShader() {
-        return `
+  getVertexShader() {
+    return `
             attribute vec4 position;
             attribute vec2 texCoord;
             
@@ -33,10 +31,10 @@ class ImageFilter {
             v_texCoord = texCoord; 
             }
         `;
-    }
+  }
 
-    getFragmentShader() {
-        return `
+  getFragmentShader() {
+    return `
         precision mediump float;
 
         varying vec2 v_texCoord;
@@ -81,124 +79,160 @@ class ImageFilter {
             mainImage(gl_FragColor, v_texCoord);
         } 
        `;
+  }
+
+  init() {
+    if (!this.initalized) {
+      this.initAsset();
+      this.initProgram();
+      this.initLocation();
+      this.initBuffer();
+
+      this.initalized = true;
     }
+  }
 
-    init() {
-        if (!this.initalized) {
-            this.initAsset();
-            this.initProgram();
-            this.initLocation();
-            this.initBuffer();
+  initAsset() {}
 
-            this.initalized = true;
-        }
-    }
+  initProgram() {
+    var vertexShader = getShader(this.vertexShader, gl.VERTEX_SHADER);
+    var fragmentShader = getShader(this.fragmentShader, gl.FRAGMENT_SHADER);
 
-    initAsset() { };
+    this.program = gl.createProgram();
+    gl.attachShader(this.program, vertexShader);
+    gl.attachShader(this.program, fragmentShader);
+    gl.linkProgram(this.program);
+  }
 
-    initProgram() {
-        var vertexShader = getShader(this.vertexShader, gl.VERTEX_SHADER);
-        var fragmentShader = getShader(this.fragmentShader, gl.FRAGMENT_SHADER);
+  initLocation() {
+    // get attribute
+    this.positionLocation = gl.getAttribLocation(this.program, "position");
+    this.texcoordLocation = gl.getAttribLocation(this.program, "texCoord");
 
-        this.program = gl.createProgram();
-        gl.attachShader(this.program, vertexShader);
-        gl.attachShader(this.program, fragmentShader);
-        gl.linkProgram(this.program);
-    }
+    // get uniforms
+    this.textureYLocation = gl.getUniformLocation(this.program, "textureY");
+    this.textureUVLocation = gl.getUniformLocation(this.program, "textureUV");
 
-    initLocation() {
-        // get attribute
-        this.positionLocation = gl.getAttribLocation(this.program, "position");
-        this.texcoordLocation = gl.getAttribLocation(this.program, "texCoord");
+    this.resolutionLocation = gl.getUniformLocation(this.program, "resolution");
+  }
 
-        // get uniforms
-        this.textureYLocation = gl.getUniformLocation(this.program, "textureY");
-        this.textureUVLocation = gl.getUniformLocation(this.program, "textureUV");
+  initBuffer() {
+    this.verticeBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.verticeBuffer);
 
-        this.resolutionLocation = gl.getUniformLocation(this.program, "resolution");
+    this.indicesBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
+  }
 
-    }
+  textureBinding(textureYBuffer, textureUVBuffer, canvasWidth, canvasHeight) {
+    gl.useProgram(this.program);
 
-    initBuffer() {
-        this.verticeBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.verticeBuffer);
+    var textureY = gl.createTexture();
+    gl.uniform1i(this.textureYLocation, 0);
 
-        this.indicesBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
-    }
+    gl.activeTexture(gl.TEXTURE0);
 
-    textureBinding(textureYBuffer, textureUVBuffer, canvasWidth, canvasHeight) {
-        gl.useProgram(this.program)
+    gl.bindTexture(gl.TEXTURE_2D, textureY);
 
-        var textureY = gl.createTexture();
-        gl.uniform1i(this.textureYLocation, 0)
+    // Set the parameters so we can render any size image.
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    // Upload the image into the texture.
+    gl.texImage2D(
+      gl.TEXTURE_2D,
+      0,
+      gl.LUMINANCE,
+      canvasWidth,
+      canvasHeight,
+      0,
+      gl.LUMINANCE,
+      gl.UNSIGNED_BYTE,
+      textureYBuffer
+    );
 
-        gl.activeTexture(gl.TEXTURE0);
+    var textureUV = gl.createTexture();
+    gl.uniform1i(this.textureUVLocation, 1);
 
-        gl.bindTexture(gl.TEXTURE_2D, textureY);
+    gl.activeTexture(gl.TEXTURE1);
 
-        // Set the parameters so we can render any size image.
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-        // Upload the image into the texture.
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE, canvasWidth, canvasHeight, 0, gl.LUMINANCE, gl.UNSIGNED_BYTE, textureYBuffer);
+    gl.bindTexture(gl.TEXTURE_2D, textureUV);
 
-        var textureUV = gl.createTexture();
-        gl.uniform1i(this.textureUVLocation, 1)
+    // Set the parameters so we can render any size image.
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    // Upload the image into the texture.
+    gl.texImage2D(
+      gl.TEXTURE_2D,
+      0,
+      gl.LUMINANCE_ALPHA,
+      canvasWidth / 2,
+      canvasHeight / 2,
+      0,
+      gl.LUMINANCE_ALPHA,
+      gl.UNSIGNED_BYTE,
+      textureUVBuffer
+    );
+  }
 
-        gl.activeTexture(gl.TEXTURE1);
+  vertexBinding(vertextBuffer, indiceBuffer) {
+    gl.useProgram(this.program);
 
-        gl.bindTexture(gl.TEXTURE_2D, textureUV);
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.verticeBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, vertextBuffer, gl.STATIC_DRAW);
 
-        // Set the parameters so we can render any size image.
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-        // Upload the image into the texture.
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE_ALPHA, canvasWidth / 2, canvasHeight / 2, 0, gl.LUMINANCE_ALPHA, gl.UNSIGNED_BYTE, textureUVBuffer);
-    }
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indiceBuffer, gl.STATIC_DRAW);
 
-    vertexBinding(vertextBuffer, indiceBuffer) {
-        gl.useProgram(this.program);
+    // Bind the position buffer.
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.verticeBuffer);
+    gl.vertexAttribPointer(this.positionLocation, 3, gl.FLOAT, false, 5 * 4, 0);
+    gl.vertexAttribPointer(
+      this.texcoordLocation,
+      2,
+      gl.FLOAT,
+      false,
+      5 * 4,
+      3 * 4
+    );
+    gl.enableVertexAttribArray(this.positionLocation);
+    gl.enableVertexAttribArray(this.texcoordLocation);
+  }
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.verticeBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, vertextBuffer, gl.STATIC_DRAW);
+  uniformBinding(canvasWidth, canvasHeight) {
+    gl.uniform2f(this.resolutionLocation, canvasWidth, canvasHeight);
+  }
 
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
-        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indiceBuffer, gl.STATIC_DRAW);
+  onDrawFrame(
+    textureYBuffer,
+    textureUVBuffer,
+    vertextBuffer,
+    indiceBuffer,
+    canvasWidth,
+    canvasHeight
+  ) {
+    this.init();
 
-        // Bind the position buffer.
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.verticeBuffer);
-        gl.vertexAttribPointer(this.positionLocation, 3, gl.FLOAT, false, 5 * 4, 0);
-        gl.vertexAttribPointer(this.texcoordLocation, 2, gl.FLOAT, false, 5 * 4, 3 * 4);
-        gl.enableVertexAttribArray(this.positionLocation);
-        gl.enableVertexAttribArray(this.texcoordLocation);
-    }
+    gl.useProgram(this.program);
 
-    uniformBinding(canvasWidth, canvasHeight) {
-        gl.uniform2f(this.resolutionLocation, canvasWidth, canvasHeight);
-    }
+    this.textureBinding(
+      textureYBuffer,
+      textureUVBuffer,
+      canvasWidth,
+      canvasHeight
+    );
 
-    onDrawFrame(textureYBuffer, textureUVBuffer, vertextBuffer, indiceBuffer, canvasWidth, canvasHeight) {
+    this.uniformBinding(canvasWidth, canvasHeight);
 
-        this.init();
+    gl.viewport(0, 0, canvasWidth, canvasHeight);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
 
-        gl.useProgram(this.program);
+    this.vertexBinding(vertextBuffer, indiceBuffer);
 
-        this.textureBinding(textureYBuffer, textureUVBuffer, canvasWidth, canvasHeight);
-
-        this.uniformBinding(canvasWidth, canvasHeight);
-
-        gl.viewport(0, 0, canvasWidth, canvasHeight);
-        gl.clearColor(0, 0, 0, 0);
-        gl.clear(gl.COLOR_BUFFER_BIT);
-
-        this.vertexBinding(vertextBuffer, indiceBuffer);
-
-        gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
-    }
-
+    gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+  }
 }
