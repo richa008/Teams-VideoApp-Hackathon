@@ -32,8 +32,8 @@ function videoFrameHandler(videoFrame, notifyVideoProcessed, notifyError) {
   canvas.height = videoFrame.height;
 
   var img = document.createElement("img");
-  img.src = "https://github.com/jlengstorf/spooky-masks-facial-recognition/blob/master/static/images/overlay-clown.png";
-  context.drawImage(img, 10, 10);
+  img.src = "https://github.com/richa008/Teams-VideoApp-Hackathon/blob/master/app/clown.png";
+  context.drawImage(img, 50, 50);
 
   //send notification the effect processing is finshed.
   notifyVideoProcessed();
