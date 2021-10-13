@@ -20,11 +20,11 @@ class FilterOrchestrator {
     }
   }
 
-  setPreliminary(imageWidth, imageHeight) {
+  setPreliminary(imageWidth, imageHeight, effect) {
     this.setCanvas(imageWidth, imageHeight);
     this.setOutputFrame(imageWidth, imageHeight);
     this.setResolution(imageWidth, imageHeight);
-    this.setFilter();
+    this.setFilter(effect);
   }
 
   setCanvas(imageWidth, imageHeight) {
@@ -50,7 +50,7 @@ class FilterOrchestrator {
     this.currentHeight = imageHeight;
   }
 
-  setFilter() {
+  setFilter(effect) {
     if (this.filter === undefined || effect != this.currentEffect) {
       if (effect === "grainy") {
         this.filter = new GrainyFilter();
@@ -59,8 +59,8 @@ class FilterOrchestrator {
     }
   }
 
-  getRGBTransformedFrame(image, imageWidth, imageHeight) {
-    this.setPreliminary(imageWidth, imageHeight);
+  getRGBTransformedFrame(image, imageWidth, imageHeight, effect) {
+    this.setPreliminary(imageWidth, imageHeight, effect);
 
     var vertices = new Float32Array([
       -1, -1, 0, 0.0, 0.0, -1, 1, 0, 0.0, 1.0, 1, 1, 0, 1.0, 1.0, 1, -1, 0, 1.0,
@@ -123,8 +123,8 @@ class FilterOrchestrator {
     }
   }
 
-  processImage(nv12Input, imageWidth, imageHeight) {
-    this.getRGBTransformedFrame(nv12Input, imageWidth, imageHeight);
+  processImage(nv12Input, imageWidth, imageHeight, effect) {
+    this.getRGBTransformedFrame(nv12Input, imageWidth, imageHeight, effect);
     this.dataAligment(nv12Input, imageWidth, imageHeight);
   }
 }

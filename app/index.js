@@ -4,18 +4,12 @@ microsoftTeams.initialize(() => {}, [
 ]);
 // This is the effect for processing
 
-let appliedEffect = {
-  effect: null,
-};
-
 let filterOrchestrator;
 let canvas;
 let gl;
 canvas = document.createElement("canvas");
 gl = canvas.getContext("webgl");
-
-// This is the effect linked with UI
-let uiSelectedEffect = {};
+let selectedEffect;
 
 let errorOccurs = false;
 
@@ -34,11 +28,12 @@ function processAndSend(videoFrame, notifyVideoProcessed, notifyError) {
     videoFrame.data.length
   );
 
-  if (appliedEffect.effect != null) {
+  if (selectedEffect != undefined) {
     filterOrchestrator.processImage(
       videoFrame.data,
       videoFrame.width,
-      videoFrame.height
+      videoFrame.height,
+      selectedEffect
     );
   }
 
@@ -52,14 +47,7 @@ function processAndSend(videoFrame, notifyVideoProcessed, notifyError) {
 }
 
 function effectParameterChanged(effectName) {
-  if (effectName != undefined) {
-    uiSelectedEffect.effect = previewFilterMapping[effectName];
-  }
-
-  appliedEffect = {
-    ...appliedEffect,
-    ...uiSelectedEffect,
-  };
+  selectedEffect = effectName;
 }
 
 function preload() {
