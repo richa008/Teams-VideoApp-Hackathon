@@ -34,13 +34,13 @@ function processAndSend(videoFrame, notifyVideoProcessed, notifyError) {
     videoFrame.data.length
   );
 
-  // if (appliedEffect.effect != null) {
-  filterOrchestrator.processImage(
-    videoFrame.data,
-    videoFrame.width,
-    videoFrame.height
-  );
-  // }
+  if (appliedEffect.effect != null) {
+    filterOrchestrator.processImage(
+      videoFrame.data,
+      videoFrame.width,
+      videoFrame.height
+    );
+  }
 
   //send notification the effect processing is finshed.
   notifyVideoProcessed();
@@ -52,42 +52,15 @@ function processAndSend(videoFrame, notifyVideoProcessed, notifyError) {
 }
 
 function effectParameterChanged(effectName) {
-  // if (effectName != undefined) {
-  //   // addCheckMark(previewFilterMapping[effectName], false);
-  //   uiSelectedEffect.effect = previewFilterMapping[effectName]
-  // }
+  if (effectName != undefined) {
+    uiSelectedEffect.effect = previewFilterMapping[effectName];
+  }
 
   appliedEffect = {
     ...appliedEffect,
     ...uiSelectedEffect,
   };
 }
-
-// function addCheckMark(id, isClickListener) {
-//   var _this = document.getElementById(id)
-
-//   var current = document.getElementsByClassName("selected");
-//   if (current.length) {
-//     var checked = document.getElementById("selected");
-//     checked.parentNode.removeChild(checked);
-//     current[0].className = current[0].className.replace(" selected", "");
-//   }
-//   _this.className += " selected";
-//   var checked = document.getElementById("template").cloneNode(true);
-//   checked.setAttributeNS(null, "id", "selected");
-//   checked.setAttributeNS(null, "class", "checked");
-//   _this.appendChild(checked);
-
-//   console.log("Current using filter:", id)
-
-//   if (isClickListener) {
-//     // call Teams API to annouce the selected filter
-//     uiSelectedEffect.effect = id;
-//     microsoftTeams.video.notifySelectedVideoEffectChanged("EffectChanged", previewFilterMappingRevert[id]);
-//     // microsoftTeams.videoApp.notifySelectedVideoEffectChanged("EffectChanged", previewFilterMappingRevert[id]);
-//   }
-
-// }
 
 function preload() {
   // var content = document.getElementsByClassName("co");
@@ -97,9 +70,8 @@ function preload() {
   // }
 
   microsoftTeams.appInitialization.notifySuccess();
-
   filterOrchestrator = new FilterOrchestrator();
-  // await loadDataAsync();
+
 
   microsoftTeams.video.registerForVideoEffect(effectParameterChanged);
   microsoftTeams.video.registerForVideoFrame(videoFrameHandler, {
