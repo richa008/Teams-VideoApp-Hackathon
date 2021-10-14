@@ -40,7 +40,7 @@ class DarkenEdgesFilter extends ImageFilter {
         void main() {
           vec4 srcColor = vec4(uv12_to_rgb(v_texCoord.xy), 1.0);
           float dist = distance(v_texCoord, vec2(0.5, 0.5));
-          srcColor.rgb *= smoothstep(0.8, size * 0.799, dist * (1.0 + 0.45)) // amount = 1, size = 0.45
+          srcColor.rgb *= smoothstep(0.8, 0.45 * 0.799, dist * (1.0 + 0.45)) // amount = 1, size = 0.45
           
           gl_FragColor = vec4(Y(srcColor.rgb), U(srcColor.rgb), V(srcColor.rgb), 1.0);
         }`;
