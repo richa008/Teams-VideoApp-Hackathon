@@ -41,7 +41,7 @@ class ColorPopFilter extends ImageFilter {
           vec4 srcColor = vec4(uv12_to_rgb(v_texCoord.xy), 1.0);
             
           /* hue adjustment, wolfram alpha: RotationTransform[angle, {1, 1, 1}][{x, y, z}] */
-          float angle = -0.5 * 3.14159265;
+          float angle = 0 * 3.14159265;
           float s = sin(angle), c = cos(angle);
           vec3 weights = (vec3(2.0 * c, -sqrt(3.0) * s - c, sqrt(3.0) * s - c) + 1.0) / 3.0;
           float len = length(srcColor.rgb);
@@ -58,7 +58,6 @@ class ColorPopFilter extends ImageFilter {
           } else {
             srcColor.rgb += (average - srcColor.rgb) * (-0.7);
           }
-            
           gl_FragColor = vec4(Y(srcColor.rgb), U(srcColor.rgb), V(srcColor.rgb), 1.0);
         }`;
     }
