@@ -44,10 +44,9 @@ class SmoothneesFilter extends ImageFilter {
           float total = 0.0;
           for (float x = -4.0; x <= 4.0; x += 1.0) {
             for (float y = -4.0; y <= 4.0; y += 1.0) {
-                vec4 sample = vec4(uv12_to_rgb(v_texCoord.xy + vec2(x, y) / texSize), 1.0);
-                float weight = 1.0 - abs(dot(sample.rgb - srcColor.rgb, vec3(0.25)));\
+                float weight = 1.0 - abs(dot(srcColor.rgb, vec3(0.25)));
                 weight = pow(weight, 15.0);
-                color += sample * weight;
+                color += srcColor * weight;
                 total += weight;
             }
           }
