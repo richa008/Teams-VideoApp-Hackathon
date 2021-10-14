@@ -47,12 +47,22 @@
     "filters": [
       {
         "id": "f36d7f68-7c71-41f5-8fd9-ebf0ae38f949",
-        "name": "grainy",
+        "name": "Grainy",
         "thumbnail": "half.png"
       },
       {
         "id": "09b467f2-e933-426a-9059-95a84ef342d5",
-        "name": "saturation",
+        "name": "Color pop",
+        "thumbnail": "half.png"
+      },
+      {
+        "id": "ae9fbcdb-c6bb-41f9-af6d-6b4ae049d25a",
+        "name": "Darken Edges",
+        "thumbnail": "half.png"
+      },
+      {
+        "id": "1e758bc1-63ca-422d-a0c0-55dfe655adf2",
+        "name": "Smoothen",
         "thumbnail": "half.png"
       }
     ],

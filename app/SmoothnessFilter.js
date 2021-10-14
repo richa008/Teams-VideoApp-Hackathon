@@ -1,4 +1,4 @@
-class ColorPopFilter extends ImageFilter {
+class SmoothneesFilter extends ImageFilter {
     constructor() {
       super();
     }
@@ -8,6 +8,7 @@ class ColorPopFilter extends ImageFilter {
         varying highp vec2 v_texCoord;
         uniform sampler2D textureY;
         uniform sampler2D textureUV;
+        uniform vec2 texSize;
         
         vec3 yuv2r = vec3(1.164, 0.0, 1.596);
         vec3 yuv2g = vec3(1.164, -0.391, -0.813);
@@ -39,26 +40,19 @@ class ColorPopFilter extends ImageFilter {
 
         void main() {
           vec4 srcColor = vec4(uv12_to_rgb(v_texCoord.xy), 1.0);
-            
-          /* hue adjustment, wolfram alpha: RotationTransform[angle, {1, 1, 1}][{x, y, z}] */
-          float angle = 0.0 * 3.14159265;
-          float s = sin(angle), c = cos(angle);
-          vec3 weights = (vec3(2.0 * c, -sqrt(3.0) * s - c, sqrt(3.0) * s - c) + 1.0) / 3.0;
-          float len = length(srcColor.rgb);
-          srcColor.rgb = vec3(
-            dot(srcColor.rgb, weights.xyz),
-            dot(srcColor.rgb, weights.zxy),
-            dot(srcColor.rgb, weights.yzx)
-          );
-            
-          /* saturation adjustment */
-          float average = (srcColor.r + srcColor.g + srcColor.b) / 3.0;
-          if (0. > 0.0) {
-            srcColor.rgb += (average - srcColor.rgb) * (1.0 - 1.0 / (1.001 - 0.9));
-          } else {
-            srcColor.rgb += (average - srcColor.rgb) * (-0.9);
+          vec4 color = srcColor;
+          float total = 0.0;
+          for (float x = -4.0; x <= 4.0; x += 1.0) {
+            for (float y = -4.0; y <= 4.0; y += 1.0) {
+                vec4 sample = texture2D(texture, texCoord + vec2(x, y) / texSize);
+                float weight = 1.0 - abs(dot(sample.rgb - srcColor.rgb, vec3(0.25)));\
+                weight = pow(weight, 15.0);
+                color += sample * weight;
+                total += weight;
+            }
           }
-          gl_FragColor = vec4(Y(srcColor.rgb), U(srcColor.rgb), V(srcColor.rgb), 1.0);
+          vec4 result = color / total;
+          gl_FragColor = vec4(Y(result.rgb), U(result.rgb), V(result.rgb), 1.0);
         }`;
     }
   }

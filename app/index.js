@@ -1,5 +1,4 @@
 microsoftTeams.initialize(() => {}, [
-  "https://lubobill1990.github.io",
   "https://richa008.github.io",
 ]);
 // This is the effect for processing
@@ -44,15 +43,8 @@ function effectParameterChanged(effectName) {
 }
 
 function preload() {
-  // var content = document.getElementsByClassName("co");
-  // var imgs = document.getElementsByClassName("candidate");
-  // for (var i = 0; i < imgs.length; i++) {
-  //   imgs[i].addEventListener("click", function (event) { addCheckMark(event.target.parentNode.id, true) });
-  // }
-
   microsoftTeams.appInitialization.notifySuccess();
   filterOrchestrator = new FilterOrchestrator();
-
 
   microsoftTeams.video.registerForVideoEffect(effectParameterChanged);
   microsoftTeams.video.registerForVideoFrame(videoFrameHandler, {
