@@ -167,8 +167,8 @@ class ImageFilter {
         gl.bindBuffer(gl.ARRAY_BUFFER, this.verticeBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([ 0, 0, 0, 1, 1, 0, 1, 1 ]), gl.STATIC_DRAW);
 
-        // gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
-        // gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indiceBuffer, gl.STATIC_DRAW);
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indiceBuffer, gl.STATIC_DRAW);
 
         // Bind the position buffer.
         gl.bindBuffer(gl.ARRAY_BUFFER, this.verticeBuffer);
