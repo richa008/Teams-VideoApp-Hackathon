@@ -14,7 +14,7 @@ class GrainyFilter extends ImageFilter {
       void main() {\
           vec4 color = texture2D(texture, v_texCoord);\
           \
-          float diff = (rand(v_texCoord) - 0.5) * 0.6;\
+          float diff = (rand(v_texCoord) - 0.5) * 0.3;\
           color.r += diff;\
           color.g += diff;\
           color.b += diff;\
