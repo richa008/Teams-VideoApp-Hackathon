@@ -59,11 +59,6 @@
         "id": "ae9fbcdb-c6bb-41f9-af6d-6b4ae049d25a",
         "name": "Darken Edges",
         "thumbnail": "half.png"
-      },
-      {
-        "id": "1e758bc1-63ca-422d-a0c0-55dfe655adf2",
-        "name": "Smoothen",
-        "thumbnail": "half.png"
       }
     ],
     "videoAppContentUrl": "https://richa008.github.io/Teams-VideoApp-Hackathon/app/index.html"

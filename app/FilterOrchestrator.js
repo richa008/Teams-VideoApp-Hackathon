@@ -59,8 +59,6 @@ class FilterOrchestrator {
         this.filter = new ColorPopFilter();
       } else if (effect === "ae9fbcdb-c6bb-41f9-af6d-6b4ae049d25a") {
         this.filter = new DarkenEdgesFilter();
-      } else if (effect === "1e758bc1-63ca-422d-a0c0-55dfe655adf2") {
-        this.filter = new SmoothneesFilter();
       }
       this.currentEffect = effect;
     }
