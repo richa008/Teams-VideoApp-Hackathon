@@ -58,7 +58,7 @@ class SmoothneesFilter extends ImageFilter {
             }
           }
           vec3 edge = max(vec3(0.0), bigAverage / bigTotal - smallAverage / smallTotal);
-          vec4 result = vec4(color.rgb - dot(edge, edge) * 0.25 * 100000.0, color.a);
+          vec4 result = vec4(srcColor.rgb - dot(edge, edge) * 0.25 * 100000.0, srcColor.a);
           gl_FragColor = vec4(Y(result.rgb), U(result.rgb), V(result.rgb), 1.0);
         }`;
     }
