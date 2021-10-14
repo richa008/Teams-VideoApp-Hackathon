@@ -8,7 +8,6 @@ class SmoothneesFilter extends ImageFilter {
         varying highp vec2 v_texCoord;
         uniform sampler2D textureY;
         uniform sampler2D textureUV;
-        uniform sampler2D texture;
         uniform vec2 texSize;
         
         vec3 yuv2r = vec3(1.164, 0.0, 1.596);
@@ -49,7 +48,7 @@ class SmoothneesFilter extends ImageFilter {
           vec3 smallAverage = vec3(0.0);
           for (float x = -2.0; x <= 2.0; x += 1.0) {
             for (float y = -2.0; y <= 2.0; y += 1.0) {
-                vec3 sample = texture2D(texture, texCoord + dx * x + dy * y).rgb;
+                vec3 sample = uv12_to_rgb(v_texCoord.xy + dx * x + dy * y).rgb;
                 bigAverage += sample;
                 bigTotal += 1.0;
                 if (abs(x) + abs(y) < 2.0) {
@@ -59,7 +58,7 @@ class SmoothneesFilter extends ImageFilter {
             }
           }
           vec3 edge = max(vec3(0.0), bigAverage / bigTotal - smallAverage / smallTotal);
-          vac4 result = vec4(color.rgb - dot(edge, edge) * 0.25 * 100000.0, color.a);
+          vec4 result = vec4(color.rgb - dot(edge, edge) * 0.25 * 100000.0, color.a);
           gl_FragColor = vec4(Y(result.rgb), U(result.rgb), V(result.rgb), 1.0);
         }`;
     }
