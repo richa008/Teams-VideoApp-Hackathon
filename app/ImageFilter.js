@@ -143,11 +143,11 @@ class ImageFilter {
     gl.texImage2D(
       gl.TEXTURE_2D,
       0,
-      gl.LUMINANCE,
+      gl.RBGA,
       canvasWidth,
       canvasHeight,
       0,
-      gl.LUMINANCE,
+      gl.RBGA,
       gl.UNSIGNED_BYTE,
       textureYBuffer
     );
@@ -168,11 +168,11 @@ class ImageFilter {
     gl.texImage2D(
       gl.TEXTURE_2D,
       0,
-      gl.LUMINANCE_ALPHA,
+      gl.RBGA,
       canvasWidth / 2,
       canvasHeight / 2,
       0,
-      gl.LUMINANCE_ALPHA,
+      gl.RBGA,
       gl.UNSIGNED_BYTE,
       textureUVBuffer
     );
@@ -184,19 +184,19 @@ class ImageFilter {
     gl.bindBuffer(gl.ARRAY_BUFFER, this.verticeBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, vertextBuffer, gl.STATIC_DRAW);
 
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indiceBuffer, gl.STATIC_DRAW);
+    // gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
+    // gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indiceBuffer, gl.STATIC_DRAW);
 
     // Bind the position buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, this.verticeBuffer);
-    gl.vertexAttribPointer(this.positionLocation, 3, gl.FLOAT, false, 5 * 4, 0);
+    gl.vertexAttribPointer(this.positionLocation, 3, gl.FLOAT, false, 0, 0);
     gl.vertexAttribPointer(
       this.texcoordLocation,
       2,
       gl.FLOAT,
       false,
-      5 * 4,
-      3 * 4
+      0,
+      0
     );
     gl.enableVertexAttribArray(this.positionLocation);
     gl.enableVertexAttribArray(this.texcoordLocation);
