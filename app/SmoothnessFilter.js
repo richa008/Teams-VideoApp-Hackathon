@@ -8,6 +8,7 @@ class SmoothneesFilter extends ImageFilter {
         varying highp vec2 v_texCoord;
         uniform sampler2D textureY;
         uniform sampler2D textureUV;
+        uniform sampler2D texture;
         uniform vec2 texSize;
         
         vec3 yuv2r = vec3(1.164, 0.0, 1.596);
@@ -44,9 +45,10 @@ class SmoothneesFilter extends ImageFilter {
           float total = 0.0;
           for (float x = -4.0; x <= 4.0; x += 1.0) {
             for (float y = -4.0; y <= 4.0; y += 1.0) {
-                float weight = 1.0 - abs(dot(srcColor.rgb, vec3(0.25)));
+                vec4 sample = texture2D(texture, v_texCoord + vec2(x, y) / texSize);
+                float weight = 1.0 - abs(dot(sample.rgb - center.rgb, vec3(0.25)));
                 weight = pow(weight, 15.0);
-                color += srcColor * weight;
+                color += sample * weight;
                 total += weight;
             }
           }

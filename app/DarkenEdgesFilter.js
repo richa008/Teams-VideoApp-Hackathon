@@ -8,6 +8,7 @@ class DarkenEdgesFilter extends ImageFilter {
         varying highp vec2 v_texCoord;
         uniform sampler2D textureY;
         uniform sampler2D textureUV;
+        uniform sampler2D texture;
         
         vec3 yuv2r = vec3(1.164, 0.0, 1.596);
         vec3 yuv2g = vec3(1.164, -0.391, -0.813);
