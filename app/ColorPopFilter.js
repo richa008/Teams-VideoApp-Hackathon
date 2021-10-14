@@ -27,7 +27,7 @@ class ColorPopFilter extends ImageFilter {
             if (0. > 0.0) {\
                 color.rgb += (average - color.rgb) * (1.0 - 1.0 / (1.001 - 0.7));\
             } else {\
-                color.rgb += (average - color.rgb) * (-07);\
+                color.rgb += (average - color.rgb) * (-0.7);\
             }\
             \
             gl_FragColor = color;\
