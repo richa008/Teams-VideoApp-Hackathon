@@ -42,7 +42,7 @@ class GrainyFilter extends ImageFilter {
       }
 
       void main() {
-        vec4 srcColor = vec4(uv12_to_rgb(uv), 1.0);
+        vec4 srcColor = vec4(uv12_to_rgb(v_texCoord.xy), 1.0);
           
         float diff = (rand(v_texCoord) - 0.5) * 0.3;
         srcColor.r += diff;
